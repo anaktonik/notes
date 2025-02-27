@@ -1,0 +1,703 @@
+\documentclass[11pt]{scrreport}
+\usepackage[sexy,hints]{evan}
+\begin{document}
+\title{Napkin Notes}
+\author{Anachthonic}
+\maketitle
+\tableofcontents
+\part{Starting out: Groups and metrics}
+\chapter{Starting out, groups}
+\section{Introduction to Groups}
+A group is a set $G$ put together with a binary operation on that set $\star$, such that it satisfies some properties:
+
+$\bullet$ (Identity) There exists $1\in G$ such that for all $g\in G$, $1\star g = g\star 1 = g$.
+
+$\bullet$ (Inverses) For any $g\in G$ there exists $g\inv \in G$ such that $g\star g\inv = g\inv g\star = 1$.
+
+$\bullet$ (Associativity) For $a,b,c\in G$, $a\star(b\star c) = (a\star b)\star c$. Because of this, we denote this product simply as $a \star b \star c$.
+
+\begin{example}[Integers under addition]
+    The pairing $\ZZ = (\ZZ, +)$ satisfies the group axioms.
+    \begin{itemize}
+        \item $0\in \ZZ$ satisfies $0+x=x+0=x$.
+        \item For any $a\in\ZZ$ there exists $-a\in\ZZ$ such that $a+(-a)=(-a)+a=0$.
+        \item Associativity is satisfied.
+    \end{itemize}
+    so it is a group.
+\end{example}
+
+\begin{example}[Nonzero rationals]
+    Denote by $\QQ^\times$ the set $\QQ\setminus\{0\}$. Then the pairing $\QQ^\times=(\QQ^\times,\cdot)$ is a group:
+    \begin{itemize}
+        \item $1\in \QQ^times$ such that $1\cdot q = q\cdot 1 = q$.
+        \item For any $q\in\QQ$, there exists $q\inv$ such that $q\cdot q\inv = q\inv\cdot q = 1$.
+        \item Associativity is satisfied. 
+    \end{itemize}
+\end{example}
+\begin{remark}
+    A group whose operation is commutative is called \vocab{abelian}. A noncommutative group is called \vocab{nonabelian}.
+\end{remark}
+\begin{example}[Non-examples of groups]
+    Here are some pairings that are not groups.
+    \begin{itemize}
+        \item The pairing $(\QQ,\cdot)$ does not form a group since $0$ has no inverse.
+        \item The pairing $(\ZZ, \cdot)$ does not form a group because no elements other than $1$ and $-1$ have inverses.
+        \item Real $2\times 2$ matrices do not form a group, the zero matrix, and any other matrices that have $0$ determinant, have no inverse.
+    \end{itemize}
+\end{example}
+\begin{example}
+    Let $S^1$ denote the complex numbers $z$ with modulus $1$. Then $(S^1,\cdot)$ is a group, since
+    \begin{itemize}
+        \item $1\in S^1$ is an identity.
+        \item Each complex number $z$ has an inverse $\bar z$. 
+    \end{itemize}
+\end{example}
+\begin{example}[Addition mod $n$]
+    The integers modulo $n$ form a group under addition, since $x$ has inverse $n-x$, and $0$ acts as an identity.
+\end{example}
+\begin{example}[Multiplication mod $p$]
+    Define $(\ZZ/p\ZZ)^\times$ to be the nonzero integers mod $p$. Then the pairing of this set with multiplication is a group, since each nonzero number mod $p$ has an inverse and $1$ acts as an identity.
+\end{example}
+\begin{remark}
+    We need that $p$ is prime, because if $p$ is composite, $\ZZ/p\ZZ$ has zero divisors. Zero divisors do not have multiplicative inverses.
+\end{remark}
+\begin{example}[General linear]
+    Let $n$ be a positive integer. Then $\GL_n(\RR)$ is defined as the set of $n\times n$ matrices with nonzero determinant that take values in $\RR$. This does form a group with matrix multiplication, and it is nonabelian.
+\end{example}
+\begin{example}[Special linear]
+    Then $\SL_n(\RR)$ is defined similarly as a set of some matrices, this time with determinant $1$. $(\SL_n,\times)$ does form a group.
+\end{example}
+\begin{example}[Symmetric group]
+    Let $S_n$ be the set of permutations of $\{1,2,3,\dots,n\}$.
+    Viewing these as bijections from this set to itself leads us to consider compositions of permutations. $(S_n,\circ)$ is actually a group, 
+    since the identity permutation defined by $\tau(k)=k$ as well as an inverse permutation $\tau(\tau\inv(k))=\tau\inv(\tau(k))=k$ both exist (bijective functions are invertible, and inverses of bijections are bijections).
+\end{example}
+\begin{example}[Dihedral group]
+    Denote by $D_{2n}$ the group of symmetries on a regular $n$-gon. The usual representation of $D_{2n}$ is this:
+    \[D_{2n}=\{1,r,r^2,\dots,r^{n-1},s,sr,sr^2,\dots,sr^{n-1}\}.\]
+    Where $r$ is a rotation, and $s$ is a reflection about the line between the center and first vertex.
+    Note that this isn't commutative. For example $rs=sr^{n-1}$.
+\end{example}
+\begin{example}[Product group]
+    Let $G=(G,\star)$ and $H=(H,\ast)$ be groups. Define the product group $G\times H = (G\times H, \cdot)$ where $\cdot$ does this:
+    \[(g_1,h_1)\cdot(g_2,h_2)=(g_1\star g_2, h_1\ast h_2).\]
+    The identity in this group is $(1_G,1_H)$ and the inverse of $(g,h)$ is $(g\inv, h\inv)$.
+\end{example}
+\begin{example}[Trivial group]
+    The trivial group $\mathbf1$ (or sometimes $\mathbf{0}$) is the group $(\{1\},\cdot)$.
+\end{example}
+\begin{example}
+    Exercise 1.1.18:
+    \begin{itemize}
+        \item[(a)] Rational numbers with odd denominators, under addition. This forms a group since closure, inverses and identity are satisfied.
+        \item[(b)] Rational numbers with denominators at most $2$, under multiplication. This does not form a group since $\frac12 \cdot \frac12 = \frac14$.
+        \item[(c)] Rational numbers with denominators at most $2$, under addition. This does form a group, since identity, closure and inverses are satisfied.
+        \item[(d)] Nonnegative integers, under addition. This does not form a group since $1$ does not have an inverse.
+    \end{itemize}
+\end{example}
+\section{Properties of groups}
+\begin{remark}
+    From now on, we use some shorthand. We abbreviate $(G,\star)$ to $G$ (whenever only one $\star$ really makes sense), and $a\star b$ to $ab$. We also abbreviate
+    \[g^n=\underbrace{g \star\dots\star g}_{n\ \text{times}}\] and $g^{-n}=(g\inv)^n$.
+\end{remark}
+\begin{proposition}
+    Let $G$ be a group. Then the following hold:
+    \begin{itemize}
+        \item The identity of the group is unique.
+        \item The inverse of any element is unique.
+        \item For any $g\in G$, we have $(g\inv)\inv=g$
+    \end{itemize}
+\end{proposition}
+\begin{proof}
+    For the first one, suppose that two identities $1$ and $0$ exist. Then by definition, $1\star 0 = 1 = 0$. 
+    For the second, if $g$ is an element, suppose $h$ and $f$ are inverses. Then $fgh = h = f$.
+    For the third, since the inverse of $g\inv$ is unique, and $g\inv \star g = 1$, then $g$ must be its inverse.
+\end{proof}
+\begin{proposition}
+    Let $G$ be a group, and $a,b\in G$. Then $(ab)\inv = b\inv a\inv$.
+\end{proposition}
+\begin{proof}
+    $(ab)(ab)\inv = 1 \implies b(ab)\inv = a\inv$, by left multiplication on both sides. Again by left multiplication on both sides, we have $(ab)\inv = b\inv a\inv$.
+\end{proof}
+\begin{lemma}[Left multiplication is bijective]
+    Let $G$ be a group, and $g$ be an element of that group. Then the map $G\to G$ given by $x\to gx$ is bijective.
+\end{lemma}
+\begin{proof}
+    We give a direct inverse: $g\inv x$. Since the function is invertible, it is bijective. Another way is to show injectivity and surjectivity in the usual way. Surjectivity is easy since for any $y$ we can give $g\inv y$. Injectivity is handled because the axiom of substitiution shows that $gx=gy$ implies $x=y$ by left multiplication with $g\inv$.
+\end{proof}
+The fact that this map is injective is usually called the \vocab{cancellation law}.
+\section{Isomorphism}
+An isomorphism a way to understand when two groups are "essentially" equal.
+Consider the two groups $\ZZ = \{\dots, -1, 0, 1, \dots\}$, and $10\ZZ = \{\dots, -10, 0, 10, \dots\}$. We can see that these are "equal" modulo multiplication by $10$. So we formalize this intuiton thusly.
+\begin{definition}
+    A bijection $\phi : G\to H$ between two groups $(G, \star)$ and $(H, \ast)$ is an \vocab{isomorphism} if it satisfies the following property for all $a,b \in G$:
+    \[\phi(a\star b) = \phi(a) \ast \phi(b)\]
+    Two groups are called \vocab{isomorphic} if there is an isomorphism between them. Notice that both groups must have the same order.\\
+    When two groups $G$ and $H$ are isomorphic we write $G\cong H$.
+\end{definition}
+\begin{example}[Examples of isomorphisms]
+    Some examples of isomorphisms follow:
+    \begin{itemize}
+        \item There is an isomorphism between $G\times H$ and $H\times G$ given by $(g,h)\to (h,g)$
+        \item The identity map $\id :G\to G$ is an isomorphism, so $G\cong G$.
+        \item There is another isomorphism from $\ZZ\to\ZZ$, and that is $x\to-x$.
+    \end{itemize}
+\end{example}
+\begin{example}
+    A nontrivial example is the case of primitive roots modulo $7$, giving that $\ZZ/6\ZZ \cong (\ZZ/7\ZZ)^\times$. And in general extending to any prime $p$. First take a primitive root, which in our case is $3$. Take the function:
+    \[\phi(\bar a) = 3^a \pmod 7.\]
+    This is a bijection since the order of $3$ mod $7$ is $6$. Moreover, $\phi(a+b) = \phi(a)\phi(b)$.
+\end{example}
+\begin{example}[Primitive roots]
+    In general, there exists an element $g\in(\ZZ/p\ZZ)^\times$. Such that $1,g,g^2,\dots,g^{p-2}$ are all different modulo $p$. In similar general shape to the proof above, we can prove that $\ZZ/(p-1)\ZZ \cong (\ZZ/p\ZZ)^\times$, for all primes $p$.
+\end{example}
+\section{Orders and Lagrange}
+\begin{definition}
+    The \vocab{order of a group} is the number of elements within the group.
+\end{definition}
+\begin{definition}
+    The \vocab{order of an element} $g$ within a group is the smallest $n$ such that $g^n=1$. The order is $\infty$ if no such $n$ exists. This is denoted by $\ord g$.
+\end{definition}
+\begin{example}
+    A primitive root is an element $g$ of $(\ZZ/p\ZZ)^\times$ whose order is $p-1$.
+\end{example}
+\begin{proposition}
+    If $g^n=1$ then $\ord g \mid n$. 
+\end{proposition}
+\begin{proof}
+    Suppose $\ord g$ doesn't divide $n$. By the Euclidean algorithm, Write $n=q(\ord g)+d$ where $d<\ord g$ is nonzero. Consider $g^n=g^{(\ord g)^q}\cdot g^d = g^d = 1$. This implies $\ord g$ isn't the real order, since there is a smaller one.
+\end{proof}
+We also have that any finite group has finite orders for all of its elements.
+\begin{theorem}[Lagrange's theorem for orders]
+    Let $G$ be any finite group. Then $x^{|G|}=1$ for any $x\in G$.
+\end{theorem}
+\begin{proof}
+    We shall prove this for abelian groups.
+    Consider the coset $xG = G$. Thus the product of all of its elements must be the same. This implies that $x^{|G|}g_1g_2\dots g_{|G|} = g_1g_2\dots g_{|G|}$ and that $x^{|G|}=1$.
+\end{proof}
+\section{Subgroups}
+\begin{definition}
+    Let $G=(G,\star)$ be a group. A subgroup of $G$ is a subset of $G$ that forms a group (with the same identity and operation, obviously.) A subgroup $H$ of $G$ is proper if $H\neq G$.
+\end{definition}
+\begin{example}
+    \begin{itemize}
+        \item $2\ZZ$ is a (proper) subgroup of $\ZZ$, that is isomorphic to itself.
+        \item Consider $S_n$, the symmetric group on $n$ elements. Let $T$ be the set of permutations $\tau$ for which $\tau(n)=n$, i.e. consider the group of permutations that fix $n$. Then this is a subgroup of $S_n$ that is isomorphic to $S_n$.
+        \item Take the group $G\times H$, and consider the subgroup $G\times\{1_H\}$. This is isomorphic to $G$ by $(g,1)\to g$.
+    \end{itemize}
+\end{example}
+\begin{example}[Pathological subgroups]
+    The groups $G$ and the trivial group $\{1_G\}$ are subgroups of $G$.
+\end{example}
+\begin{example}[Generated subgroup]
+    Consider the set $\left<x\right> = \{\dots, x^{-2},x\inv, 1, x, x^2, \dots\}$. This is also a subgroup of $G$, the one generated by $x$.
+\end{example}
+\section{Problem solutions}
+\textbf{Problem 1C}. We give the isomorphism explicitly, as $\phi(r)=(1 \ 2 \ 3)$ (an element of order $3$) and $\phi(s) = (1 \ 2)(3)$ (an element of order $2$). We should also prove that $\phi(sr)=\phi(r)^{2}\phi(s)$. One can just check using their own diagram. So this works.
+
+In $D_{24}$, there are elements with order $12$, while the greatest order possible for an $S_4$ element is $4$.
+
+\textbf{Problem 1D}. Suppose we have a group $G_p$ that is not isomorphic to $\ZZ/p\ZZ$. Note that the orders for each of the elements must divide $p$, meaning they must either be $1$ or $p$. $0$ (the identity) is the only element that can have order $1$, so all other elements must have order $p$. Suppose then $x$ is a member of $G_p$, such that it has order $p$. Then we can generate the group as $\{0,x,2x,\dots,(p-1)x\}$. Now map $ax \to \bar a$. This is an isomorphism, so $G_p = \ZZ/p\ZZ$.
+
+\textbf{Problem 1E}. We can do $\phi(r)=(1 \ 2 \ 3 \ 4)$ and $\phi(s) = (1 \ 2)(3 \ 4)$, fixing all the other elements $S_8$ acts on. Next we prove that $\phi(s)\phi(r)=\phi(r)^3\phi(s)$. One can check that both functions take $(1,2,3,4)$ to $(3,2,1,4)$. 
+
+\textbf{Problem 1F}. Take $n=|G|$.
+\begin{itemize}
+    \item[(a)] We can think of each element of $G$ as a function $x\to gx$. This is a bijection, so it is a permutation. Just take this to be the permutation!
+    \item[(b)] This time, let's think of each element as a matrix and a vector. $Gx$, when $x$ is a vector, should equal $(gx)$, where $(gx)$ is the vector. Then $ABx$ would be $A(bx) = (abx)$. One way to do that is to think of the vectors as encoding placement. For example, say $g_m = (0,0,\dots, 1, \dots, 0, 0).$ where the $1$ is at position $m$. Then we can make the matrices have exactly one $1$ on each column and row so that they map exactly to the right thing. In general the first column of matrix $G_m$ should have a $1$ at the $m$th position. The rest will cycle through, so for example $G_2g_2=g_3$. (?)
+\end{itemize}
+\chapter{Starting out, metrics}
+\section{Definition of a metric space}
+\begin{definition}
+    A metric space is a pairing $(M,d)$ consisting of a set of points $M$ and a distance function $d$ that must obey the following:
+    \begin{itemize}
+        \item $d$ is symmetric, i.e. $d(x,y)=d(y,x)$.
+        \item $d$ is \vocab{positive definite} which means $d(x,y)\geq 0$ and $d(x,y)=0$ only when $x=y$.
+        \item $d$ satisfies the triangle inequality, i.e.
+            \[d(x,y)+d(y,z)\geq d(x,z).\]
+    \end{itemize}
+\end{definition}
+\begin{remark}
+    Just like with groups, whenever the metric is obvious, we will just write $M$ instead of $(M,d)$.
+\end{remark}
+\begin{example}[Metric spaces on $\RR$ and friends]
+There are many metric spaces on extensions of the real numbers.
+    \begin{itemize}
+        \item The real line $\RR$ is a metric space under $d(x)=|x-y|$.
+        \item The interval $[0,1]$ is also a metric space, with the metric inherited from $\RR$.
+        \item Any subset $S$ of $\RR$ is a metric space under the same metric.
+        \item $\RR^2$ is a metric space under $d((x_1,y_1),(x_2,y_2))=\sqrt{(x_1-x_2)^2+(y_1-y_2)^2}$
+        \item Any subset of $\RR^2$ is a metric space under the same metric.
+    \end{itemize}
+\end{example}
+\begin{example}[Taxicab on $\RR^2$]
+    Define $d((x_1,y_1),(x_2,y_2)) = |x_1-x_2|+|y_1-y_2|$.
+\end{example}
+\begin{example}[Metric spaces on $\RR^n$]
+    There are some metrics on $\RR^n$
+    \begin{itemize}
+        \item[(a)] Define the Euclidean metric as
+        \[
+            d((a_1,\dots, a_n),(b_1,\dots,b_n))=\sqrt{(a_1-b_1)^2+\dots+(a_n-b_n)^2}
+        \]
+        \item[(b)] The open \vocab{unit ball} $B^n$ is the subset of $\RR^n$ consisting of the points $(x_1,\dots,x_n)$ such that $x_1^2+\dots+x_n^2<1$. 
+        \item[(c)] The open \vocab{unit sphere} $S^{n-1}$ is the subset of $\RR^n$ consisting of the points $(x_1,\dots,x_n)$ such that $x_1^2+\dots+x_n^2=1$, with the inherited metric. 
+    \end{itemize}
+\end{example}
+\begin{example}[Function space]
+    Let $M$ be the space of continuous functions $f:[0,1] \to \RR$, and define the metric by $d(f,g)=\int_0^1|f-g|dx$.
+\end{example}
+\begin{example}[Discrete space]
+    Let $S$ be a set of points. We can make $S$ into a discrete space using the function
+    \[d(x,y)=\begin{cases}
+        0&x=y \\
+        1&x\neq y
+    \end{cases}\]
+    If $|S|=4$ this is visualizable as the vertices of a regular tetrahedron living in $\RR^3$.
+\end{example}
+\begin{example}
+    Graphs can be made into metric spaces with the space being the set of vertices and the distance being the graph-theoretic distance between them. (When $G$ is a complete graph you get a discrete space.)
+\end{example}
+\section{Convergence in metric spaces}
+\begin{definition}
+    Let $(x_n)_{n\geq 1}$ be a sequence of points in metric space $M$. We say that $x_n$ converges to $x$ if the following holds: For all $\varepsilon>0$, there exists an integer $N_\varepsilon$ such that $d(x_n,x)<\varepsilon$ for each $n\geq N$. We write
+    \[x_n\to x\] or more verbosely, \[\lim_{n\to\infty}x_n=x.\]
+\end{definition}
+\begin{example}
+    The sequence $x_1=1$, $x_2=1.4$, $x_3=1.41$, $dots$.
+    \begin{itemize}
+        \item If we see this as a sequence in $\RR$, it converges to $\sqrt2$.
+        \item If this is a sequence in $\QQ$, it doesnt converge, despite all of its elements being members of $\QQ$.
+    \end{itemize}
+\end{example}
+\begin{remark}
+    The convergent sequences in a discrete space are those which are eventually all one element. ($\varepsilon = \frac12$ will show this).
+\end{remark}
+\section{Continuous maps}
+\begin{definition}
+    Let $M=(M,d_m)$ and $N=(N,d_n)$ be metric spaces. A function $f: M\to N$ is continuous at $p\in M$ if for every $\varepsilon>0$ there exists $\delta>0$ such that $d_m(x,p)<\delta \implies d_n(f(x),f(p))<\epsilon$. 
+\end{definition}
+We give another equivalent condition.
+\begin{theorem}
+    A function $f:M\to N$ is continuous at $p$ iff for all sequences $(x_n)$ that converge to $p$, $(f(x_n))$ converges to $f(p)$.
+\end{theorem}
+\begin{proof}
+    Define \vocab{"eventually $\varepsilon$ apart"} to mean that a sequence has all its points after some $N$ within distance $\varepsilon$ of a point or a sequence.
+
+    We first prove that continuous maps preserve sequential convergence. Suppose $x_n \to p$ and $f$ is a continuous function at $p$. Let $\varepsilon>0$. We know that there exists $\delta$ such that if $x_n$ and $p$ are eventually $\delta$ apart, then $f(x_n)$ and $f(p)$ are eventually $\varepsilon$ apart. Since $x_n$ and $p$ will eventually be $\delta$ apart, by virtue of convergence, we are done.
+
+    Next we prove that if a function preserves sequential convergence, then it is continuous. Suppose we have that it's not. Then there exists $\varepsilon>0$ such that no matter what $\delta$ we choose, there is a point $x$ within $\delta$ of $p$ such that $f(x)$ is not within $\varepsilon$ of $p$. Take, for example, $\delta = \frac{1}{2^n}$ and choose one point within $\delta$ of $p$ that satisfies this property, calling it $x_n$. However, this means that $x_n \to p$ while $f(x_n) \not\to p$, which is a contradiction.
+\end{proof}
+\begin{proposition}[Composition preserves continuity]
+    Let $f: M\to N$ and $g: N\to L$ be continuous functions. Then $h = g\circ f : M \to L$ is continuous.
+\end{proposition}
+\begin{proof}
+    This first condition tells us that for all $\varepsilon > 0$ there exists $\delta$ such that if $x$ and $p$ are $\delta$ apart then $f(x)$ and $f(p)$ are $\varepsilon$ apart. Moreover, for all $\zeta>0$ there exists $\varepsilon$ such that if $f(x)$ and $f(p)$ are $\varepsilon$ apart then $g(f(x))$ and $g(f(p))$ are $\zeta$ apart. The existence of $\delta$ is guaranteed, so we are done.
+
+    An easier method: Notice that for any convergent sequence $x_n$, $f(x_n)$ is also convergent. Then so is $g(f(x_n))$. So $h$ preserves convergence, so we are done.
+\end{proof}
+\begin{remark}
+    A map from a discrete space to a metric space is always continuous, since the only convergent sequences are the ones that are all eventually $p$. Then the resulting sequence is all eventually $f(p)$, so convergent sequences are maintained.
+\end{remark}
+\section{Homeomorphism}
+\begin{definition}
+    A function $f: M\to N$ between metric spaces is a \vocab{homeomorphism} if it is a bijection, and both $f$ and $f\inv$ (which exists) are both continuous. We say that $M$ and $N$ are homeomorphic.
+\end{definition}
+Homeomorphism is an equivalence relation. (As we have proved earlier, transitivity holds.)
+\begin{example}[Homeomorphism $\neq$ continuous bijection]
+
+    There is a continuous bijection from $[0,1)$ to the circle, but it has no continuous inverse.
+
+    Let $M$ be a discrete space with size $|\RR|$. There is a continuous function $f:M\to \RR$ but it does not have a continuous inverse.
+\end{example}
+\begin{example}
+    Some examples of homeomorphisms follow:
+    \begin{itemize}
+        \item Any space $M$ is homeomorphic to itself, through the identity map.
+        \item It is a famous example that a donut (torus) is homeomorphic to a coffee cup.
+        \item The unit circle is homeomorphic to the boundary of the square. 
+    \end{itemize}
+\end{example}
+\begin{example}[Unit circle metrics]
+    There are two ways to define a metric on the unit circle $S^1$. The chord distance (inherited from $\RR^2$) and the circumferential distance. One can prove that these metrics are homeomorphic, meaning it doesn't matter whichever one we choose. (Map an arc to its chord and vice versa)
+\end{example}
+\begin{example}[Non-size preserving homeomorphisms]
+    The open interval $(-1,1)$ is homeomorphic to the real line, by the bijection
+    \[x \mapsto \tan(x\pi/2)\]
+\end{example}
+\section{Product metric}
+Let $M = (M,d)$ and $N = (N,e)$ be metric spaces. We want to define the product metric $f : M\times N\to \RR$. Let $p_i = (m_i, n_i)$. We have a couple of choices when it comes to the metric we want:
+\[
+    f_1(p_1,p_2) = \max\{d(m_1,m_2), e(n_1,n_2)\}
+\]
+
+\[
+    f_2(p_1,p_2) = \sqrt{d(m_1,m_2)^2+e(n_1,n_2)^2}
+\]
+
+\[
+    f_3(p_1,p_2) = d(m_1,m_2)+e(n_1,n_2)
+\]
+Which are the maximum, Euclidean and taxicab metrics respectively.
+\begin{proposition}
+    \[f_1(p_1,p_2) \leq f_2(p_1,p_2) \leq f_3(p_1,p_2) \leq 2f_1(p_1,p_2),\]
+    which means a product metric taking any of these as metrics are homeomorphic.
+\end{proposition}
+\begin{proof}
+    $f_2\leq f_3$ is very obvious by squaring both sides. Squaring both sides also shows $f_1\leq f_2$. Next, since twice the maximum is bigger than the sum, we have $f_3\leq 2f_1$.
+
+    Call the metrics taking these as $M_1,M_2$, and $M_3$. Prove first that $M_1$ and $M_2$ are homeomorphic:
+
+    Fix $\varepsilon$. So there must exist $\delta$ such that $f_1(p_1,p_2)< \delta \implies f_2(p_1,p_2)< \varepsilon$.
+    For this side, we can pick $\delta = \varepsilon/2$. The other side requires $\delta = \varepsilon$. This also works for $f_3$ and $f_1$, so we are done.
+\end{proof}
+\begin{example}
+    If we take $M=N=\RR$, we get the metric on $\RR^2$. We principally pick the Euclidean metric, but we have now shown that all others are homeomorphic, and thus this choice is arbitrary. (although well motivated)
+\end{example}
+\begin{proposition}
+    We have $(x_n,y_n)\to (x,y)$ iff $x_n\to x$ and $y_n \to y$.
+\end{proposition}
+\begin{proof}
+    Let's take the maximum metric. Fix $\varepsilon>0$. If there exists $\delta$ such that $f((x_n,y_n),(x,y))< \varepsilon$, then both $d(x_n,x)$ and $e(y_n,y)$ are less than $\varepsilon$. So if $(x_n,y_n)$ converges, then so do $(x_n)$ and $(y_n)$. Instead assume that $(x_n)$ and $(y_n)$ converge, and let $\varepsilon>0$. Then there exists $\delta$ such that both $d(x_n,x)$ and $e(y_n,y)$ are less than $\varepsilon$. Thus their maximum is also less than $\varepsilon$.
+\end{proof}
+\begin{proposition}
+    Addition and multiplication are continuous maps $\RR\times\RR\to\RR$.
+\end{proposition}
+\begin{proof}
+    We first prove that $+:\RR\times\RR\to\RR$ is continuous using the maximum metric is a continuous map. Fix $\varepsilon>0$. We have to find $\delta$ such that if $\max\{|x-a|,|y-b|\}<\delta \implies |(x+y)-(a+b)|<\varepsilon$. However, since $|(x-a)+(y-b)|\leq|x-a|+|y-b|<2\delta$, picking $\varepsilon = \delta/2$ is enough.
+
+    Next is to prove that $\times:\RR\times\RR\to\RR$ is continuous. We use sequential continuity. Let $x_n\to x$ and $y_n\to y$. Then $x_ny_n=(x+(x_n-x))(y+(y_n-y))=xy+y(x_n-x)+x(y_n-y)+(x_n-x)(y_n-y)$. It is easy to see that this value tends to $xy$, but we can also say that $|x_ny_n-xy|\leq|y||x_n-x|+|x||y-n-y|+|x_n-x||y_n-y|<(x+y)\delta + \delta^2$. Solving the equation $\varepsilon = (x+y)\delta + \delta^2$ will get us our desired result.
+\end{proof}
+\section{Open sets}
+\begin{definition}
+    Let $M$ be a metric space. For each real number $r$ and point $p\in M$ we define
+    \[M_r(p)=\left\{x\in M \mid d(x,p)<r\right\}.\]
+    We call this the \vocab{$r$-neighborhood} around $p$ in $M$.
+\end{definition}
+A sequence $x_n$ converges to $x$ if each $r$-neighborhood around $x$ contains all eventual points (i.e. all points after some $n=N$) of $x_n$.
+\begin{remark}
+    A function $f$ is continuous at $p$ if the preimage of each $\varepsilon$-neighborhood around $f(p)$ contains some $\delta$-neighborhood around $p$.
+\end{remark}
+\begin{definition}
+    A set $U\subset M$ is \vocab{open} in $M$ if for each $p\in M$, some $r$-neighborhood around $p$ is contained within $U$.
+\end{definition}
+\begin{example}
+    Here are some examples of open sets
+    \begin{itemize}
+        \item Each $r$-neighborhood is open. 
+        \item Open intervals in $\RR$ are open, hence the name.
+        \item The unit ball $B^n$ is open in $\RR^n$
+        \item The interval $(0,1)$ is open in $\RR$ but not open in $\RR^2$.
+        \item The empty set $\emptyset$ and $M$ are open in $M$ for vacuous and tautological reasons respectively.
+    \end{itemize}
+\end{example}
+\begin{example}
+    Some non-examples of open sets follow.
+    \begin{itemize}
+        \item The closed interval $[0,1]$ is not open in $\RR$. No neighborhood around $0$ is fully contained within it.
+        \item The unit circle $S^1$ is not open in $\RR^2$.
+    \end{itemize}
+\end{example}
+\begin{remark}
+    Each subset of a discrete space is open.
+\end{remark}
+\begin{proposition}
+    The intersection of finitely many open sets is open, and the union of open sets is open, even when there are infinitely many.
+\end{proposition}
+\begin{proof}
+    Let $p\in U_1\cap U_2\cap\dots \cap U_n$. There exists $r$ such that $M_r(p)$ is a subset of $U_m$ for each $m$. Pick the smallest such $r$, call it $R$. Then $M_R(p)\subseteq M_r(p) \subseteq U_m$ for all $m$.
+
+    Let $p$ be a member of a union of open sets $U$. Let $U_1$ be (one of, if not) the set that $p$ is a part of. There is some $r$ such that $M_r(p)\subseteq U_1\subseteq U$.
+\end{proof}
+\begin{theorem}
+    A function $f: M\to N$ of metric spaces is continuous iff the pre-image of every open set in $N$ is open in $M$.
+\end{theorem}
+\begin{proof}
+    Suppose the preimage of each open set in $N$ is open in $M$. Then the preimage of an $\varepsilon$-neighborhood aronud $f(p)$ is an open set in $M$ that contains $p$. Thus there exists $\delta$ such that the $\delta$-neighborhood around $p$ is fully inside that preimage. So $f$ is continuous.
+
+    Now assume $f$ is continuous. Suppose $V$ is an open subset of $N$, and let $U=f\inv(V)$. Pick $x\in U$, so that $y = f(x)\in V$. Since $V$ is open, take a $\varepsilon$-neighborhood around $y$ which is fully contained within $V$. We have a $\delta$-neighborhood around $x$ that fully lands in the $\varepsilon$-neighborhood around $y$, and thus is fully contained in $U$, because of continuity. Since this holds for all $x$, we have that $U$ is open.
+\end{proof}
+\section{Closed sets}
+\begin{definition}
+    Let $M$ be a metric space. $S\subseteq M$ is \vocab{closed} in $M$ if each convergent sequence converges to a point inside $S$. (limit completeness) 
+\end{definition}
+Let $\lim S := \{p\in M : \exists (x_n)\in S \ \text{such that} \ x_n\to p\}.$ A set is closed if $\lim S = S$.
+\begin{remark}
+    $\lim S$ is closed. Let $x_n$ be a sequence in $\lim S$ converging to $x$. Let $E_n$ be a sequence in $S$ that is $\varepsilon$ away from $x_n$. (We can achieve this since $x_i$ are limit points). We now know that $E_n$ is $2\varepsilon$ away from $x$, so $x\in \lim S$.
+\end{remark}
+\begin{example}[Examples of closed sets]
+    Some examples of closed sets follow.
+    \begin{itemize}
+        \item The empty set $emptyset$ is closed in $M$.
+        \item $M$ is closed in $M$.
+        \item The closed interval $[0,1]$ is closed in $\RR$ and $\RR^2$.
+    \end{itemize}
+\end{example}
+\begin{theorem}
+    Let $M$ be a metric space, and $S\subseteq M$ be a subset. Then these are equivalent:
+    \begin{itemize}
+        \item $S$ is open in $M$.
+        \item $M\setminus S = S^c$ is closed in $M$.
+    \end{itemize}
+\end{theorem}
+\begin{proof}
+    Let $S$ be an open set, and suppose there is some limit point $x$ of $S^c$ that is a member of $S$. However, there will always be members of $S^c$ around $x$, a contradiction.
+
+    Suppose $S$ is a closed set, and suppose there is some point in $S^c$ that always contains some points from $S$ around it. However, if a point always contains points from $S$ no matter how small the neighborhood, that means it is a limit point of $S$ and thus $S$ is not closed, a contradiction.
+\end{proof}
+\section{Problem solutions}
+\textbf{Problem 2A}. Fix $\varepsilon>0$. Then we must find $\delta$ such that $\max\{d(a,b),d(x,y)\}<\delta$ implies $|d(a,b)-d(x,y)|<\varepsilon$. However, just pick $\delta=\frac{\varepsilon}{2}$.\\
+\textbf{Problem 2B}. Let $f$ be a continuous bijection $f:\QQ\to\NN$. Fix $\varepsilon < 1$. There must exist $\delta$ such that $|x-y|<\delta\implies |f(x)-f(y)|<\varepsilon$. This implies that $f(x)=f(y)$, and that $x=y$. A contradiction.\\
+\textbf{Problem 2C}. $f(x,y) = g(x,-y)$ where $g$ is known to be continuous. So is $-x$, so $f$ is continuous. $f(x,y)=xf(y)$ where multiplication is continuous, so we must show $f: \RR_{>0}\to\RR$ defined by the reciprocal is continuous. Let $p$ be a point and $\varepsilon>0$ be fixed. There must exist $\delta$ such that if $|x-p|< \delta$ then $|\frac{1}{x}-\frac{1}{p}|=|\frac{x-p}{xp}|<\frac{2}{p^2}|p-x|<\frac{2\delta}{p^2}$, so we are done.\\
+\textbf{Problem 2D}. Consider the function \[f(x)=\begin{cases}
+    x & x\in \QQ \\
+    0 & x\in \RR \setminus \QQ
+\end{cases}\]\\
+\textbf{Problem 2E}. Suppose we have a function $f:\RR\to\RR$ such that $x>y\implies f(x)>f(y)$ and is continuous nowhere.
+
+\part{Basic Abstract Algebra}
+\chapter{Homomorphisms and quotient groups}
+\section{Generators and group presentations}
+\begin{definition}
+    Let $S$ be a subset of group $G$. The subgroup generated by $S$, $\left<S\right>$, is the set of elements that can be written as a finite product of the elements of $S$ (and their inverses). If $\left<S\right> = G$, we say that $S$ is a set of generators for $G$. 
+\end{definition}
+\begin{remark}
+    The "(and their inverses)" condition is not necessary when we are dealing with a finite group, because $x\inv = x^{|G|-1}$, as follows from uniqueness of inverses.
+\end{remark}
+\begin{example}
+    $\left<1\right>$ generates $\ZZ$ because all integers can be written as finite sums of $1$ and $-1$.
+\end{example}
+\begin{definition}
+    The representation of groups given by generator elements and their relations is also called \vocab{group presentation}. For example, $\left<x \mid x^{100}=1\right>$ is the presentation for $\ZZ/100\ZZ$.
+\end{definition}
+\begin{example}[Dihedral group]
+    The dihedral group of order $2n$ is given by \[D_{2n}=\left<r,s\mid r^n = s^2 = 1, sr = r\inv s\right>.\]
+\end{example}
+\begin{example}[Klein four]
+    The \vocab{Klein four group}, given by $(\ZZ/2\ZZ)^2$ has the presentation \[\left<a,b\mid a^2=b^2=1, ab=ba\right>.\]
+\end{example}
+\begin{example}
+    The \vocab{Free group} on $n$ elements, $F_n$ is given by the presentation \[F_n=\left<x_1,x_2,\dots,x_n\right>.\]
+\end{example}
+\section{Homomorphisms}
+\begin{definition}
+    Let $G=(G,\cdot)$ and $H=(H,\star)$ be groups. A \vocab{group homomorphism} is a function $\phi: G\to H$ such that \[\phi(g_1\cdot g_2) =\phi(g_1)\star\phi(g_2).\]
+\end{definition}
+\begin{example}
+    Let $G$ and $H$ be groups.
+    \begin{itemize}
+        \item Any isomorphism is a homomorphism. The identity map $G\to G$ is a homomorphism.
+        \item The trivial homomorphism $G\to H$ sends everything to $1_H$.
+        \item There is a homomorphism from $\ZZ$ to $\ZZ/100\ZZ$ by modding everything out by $100$.
+        \item There is a homomorphism $\ZZ\to\ZZ$ defined by $x\mapsto 10x$ which is injective but not surjective.
+        \item There is a homomorphism from $S_n$ to $S_{n+1}$ by "embedding": every permutation on $n$ elements is a permutation on $n+1$ elements by fixing the $n+1$st element.
+        \item $\phi: D_{12}\to D_6$ given by $s_{12}\mapsto s_6$ and $r_{12}\mapsto r_6$. This is a homomorphism.
+        \item Specifying a homomorphism $\ZZ\to G$ is the same as giving $\phi(1)$.
+    \end{itemize}
+\end{example}
+\begin{definition}
+    The \vocab{kernel} of a homomorphism $\phi: G\to H$ is defined by \[\ker\phi = \{g\in G : \phi(g)=1_H\}.\]
+\end{definition}
+\begin{remark}
+    $\ker\phi$ is a subgroup of $G$ because it includes the identity of $G$, and any inverses: $1_H=\phi(g \star g\inv) = \phi(g)\ast \phi(g\inv) = 1_H \ast \phi(g\inv)$.
+\end{remark}
+\begin{proposition}
+    The map $\phi$ is injective iff $\ker\phi = \{1_G\}$.
+\end{proposition}
+\begin{proof}
+    Suppose $\phi$ is injective. We know that $\phi(1_G)=1_H$, and there can be no other elements of the kernel. Now suppose $\ker\phi = \{1_G\}$, and further suppose that $f(a)=f(b)$ where $a\neq b$. Now consider $1_H=\phi(a)\phi(b)\inv=\phi(ab\inv) \neq \phi(1_G)=1_H$, a contradiction.
+\end{proof}
+\begin{example}[Examples of kernels]
+    Let $G$ and $H$ be groups.
+    \begin{itemize}
+        \item The kernel of an isomorphism $G\to H$ is $\{1_G\}$.
+        \item The kernel of the trivial homomorphism $G\to H$ is $G$.
+        \item The kernel of the homomorphism $\ZZ\to\ZZ/100\ZZ$ by $n\to \bar n$ is $100\ZZ$.
+        \item The kernel of the map $\ZZ\to\ZZ$ given by $x\mapsto 10x$ is $\{0\}$.
+    \end{itemize}
+\end{example}
+\begin{remark}
+    Fix $g\in G$. Suppose we have $\ZZ\to G$ by $n\to g^n$. Let $x=\ord g$. The kernel is $x\ZZ$.
+\end{remark}
+\begin{remark}
+    Let $\phi:G\to H$ be a homomorphism. Then the image $\phi(G)$ is a subgroup of $H$. We have identity $1_H$, and the inverse is inherited.
+\end{remark}
+\section{Cosets and modding out}
+Let $G$ and $Q$ be groups, and suppose we have a surjective homomorphism $\phi : G \surjto Q$.
+
+Let's look at the special case of $\phi : \ZZ \to \ZZ/100\ZZ$, modding out by $100$. We know that $\ker\phi = 100\ZZ$. 
+\begin{definition}
+    Give an equivalence relation $x \equiv y$ if $\phi(x) = \phi(y)$.
+\end{definition}
+Call $N = \ker\phi$.
+\begin{remark}
+    $x\equiv y$ if and only if $x=yn$ for some $n\in N$. The first direction is painfully obvious, so let's do the other part. Suppose $x\equiv y$. This means $\phi(x)=\phi(y)$. This means that $\phi(xy\inv) \in N$, so that $xy\inv = n$ for some $n\in N$. This immedieately follows.
+
+    Thus, the equivalence class that contains $x$ is given by $xN = \{xn : n\in N\}$.
+\end{remark}
+\begin{definition}
+    Let $H$ be a subgroup of $G$. Then a set of the form $gH$ for some $g\in G$ is called a \vocab{left coset} of $H$.
+\end{definition}
+\begin{definition}
+    A subgroup $N$ of $G$ is called \vocab{normal} if it is the kernel of some homomorphism. We write $N\unlhd G$.
+\end{definition}
+\begin{definition}
+    Let $G$ be a group and $N$ a normal subgroup. We define a \vocab{quotient group}, denoted $G/N$, (read "$G$ mod $N$") using the following heuristics:
+    \begin{itemize}
+        \item We want each element of $G/N$ to be a coset of $N$.
+        \item In this light, we wish to define the product of two cosets. Let $q_1$ be the value associated with coset $C_1$ and similarly with $q_2$ and $C_2$. We want $C_1\cdot C_2$ to contain $q_1q_2$.
+        \item We can also define this using representatives of elements in $C_i$. Let $g_1\in C_1$ and $g_2\in C_2$. Then we want $g_1g_2\in C_1C_2$.
+    \end{itemize}
+\end{definition}
+\section{Proof of Lagrange's in its generality}
+\begin{theorem}
+    Let $G$ be a finite group, and $H$ a subgroup. Then $|G|$ is divisible by $|H|$.
+\end{theorem}
+\begin{proof}
+    Very simple. Since all the cosets of $H$ have the same cardinality, and form a partition of $G$ (even when $H$ isn't normal). Hence if $n$ is the amount of cosets, $n\cdot |H| = |G|$.
+\end{proof}
+\begin{remark}
+    $x^|G|$ is equal to $1$. Consider $H = \left<x\right>$. This set is $\{1,x,\dots, x^{|H|-1}\}$. This tells us that $x^{|H|} = 1$, so $x^{|G|}=1$.
+\end{remark}
+\begin{remark}
+    In general, $|G/N|=|G|/|N|$.
+\end{remark}
+\section{Eliminating the homomorphism}
+\begin{proposition}
+    If $\phi : G\to K$ is a homomorphism with kernel $H = \ker\phi$, we have that if $h\in H$, for all $g\in G$, $ghg\inv \in H$.
+\end{proposition}
+\begin{proof}
+    See that $\phi(ghg\inv) = \phi(g)\phi(h)\phi(g\inv)=\phi(gg\inv)=1_K$.
+\end{proof}
+\begin{example}[Example of a non-normal subgroup]
+    Consider $D_{12}$ and look at $H=\{1,s\}$ as a subgroup. Notice that
+    \[rsr\inv = r(sr\inv) = r(rs)=r^2s\notin H.\]
+\end{example}
+\begin{theorem}
+    A subgroup $H$ of $G$ is normal if and only if for all $h\in H$ and $g\in G$ we have $ghg\inv \in H$.
+\end{theorem}
+\begin{proof}
+    We have already shown one of the directions, now let's show the other ones. We need to build a homomorphism with kernel $H$. So we just create $G/H$ as the cosets. We need to verify
+    \begin{lemma}
+        If $a\equiv a'$ and $b\equiv b'$ then $a'b'\equiv ab$.
+    \end{lemma}
+    \begin{proof}
+        Let $a'=ah_1$ and $b'=bh_2$. Then we need to have that $ah_1bh_2 \equiv ab$. We have that $b\inv h_1b$ is some element of $H$, call it $h_3$. Thus $h_1b$ is $bh_3$, and the left hand side becomes $abh_3h_1 \equiv ab$. Since $h_3h_1$ is an element of $H$, we are done.
+    \end{proof}
+    With that, we can define the multiplication of two cosets as $(g_1H)(g_2H)=(g_1g_2)H$. and the above claim shows that this is well defined, i.e. it doesn't matter what representatives of $g_1H$ and $g_2H$ we choose. So $G/H$ is a group. Moreover, there is an obvious homomorphism $g\mapsto gH$, with kernel $H$.
+\end{proof}
+\begin{example}[Modding out in the product group]
+    Consider the product group $G\times H$. Earlier we identified the subgroup $G' = \{(g,1) : g\in G\} \cong G$
+
+    We can also see that $G' \unlhd G\times H$. (It is the kernel of the homomorphism $G\times H \to H$ with $(g,h)\mapsto h$.) We can also calculate using our new method to get $(a,b)(g,1)(a\inv, b\inv) = (aga\inv, 1)\in G'$.
+\end{example}
+\begin{example}[Quotients may not cancel with products]
+    It's not necessarily true that $(G/H)\times H \cong G$. For example, consider $G=\ZZ/4\ZZ$ and the normal subgroup $H=\{0,2\} \cong \ZZ/2\ZZ$.
+\end{example}
+\begin{example}[Explicit computation]
+    Let $\phi: D_8 \to \ZZ/4\ZZ$ be defined by $s\to \bar 2$ and $r \to \bar 2$.
+
+    The kernel is $N=\{1,r^2,sr,sr^3\}$ (each of the elements that feature an even number of $s$ and $r$). We can see that then the odd numbered elements will return $2$. So we see that $D_8 / N$ is a group of order $2$, so it is $\ZZ/2\ZZ$. And the image of $\phi$ is $\{0,2\}\cong \ZZ/2\ZZ$.
+\end{example}
+\begin{remark}
+    If $G$ is abelian, it obviously follows that each subgroup of $G$ is normal.
+\end{remark}
+\begin{remark}
+    If $G$ is a group with $n$ generators, we can write it as the quotient group $F_n/N$ where $N$ is a kernel. For example suppose you have the relation $x=y$ in your presentation. Then you will force $\phi(x)=\phi(y)$ and so $\phi(xy\inv)=1$. Turn each of these relations into something that should result in $1$. Suppose you're left with $R_1, R_2, \dots, R_n$ where $R_i$ are the things in our relations that should be $1$. We just say that $N=\left<R_1,R_2,R_3,\dots, R_n\right>.$
+\end{remark}
+\section{Problem solutions}
+\textbf{3A}. Taking arbitrary $g$ and $h$, we see that $gghh = ghgh \implies gh=hg$. So the group must be abelian. This obviously works for all abelian groups.\\
+\textbf{3B}. Consider the group $G=D_{10}$. Then we have $\phi(r)=0$ and $\phi(s)=1$, and we need to verify that $\phi(sr)=\phi(r^4s)=1$. So this is a homomorphism and so we have $\langle r \rangle$ is a normal subgroup with $G/N \cong \ZZ/2\ZZ$. For the second one, we have $rsr^4 = sr^3 \notin \{1,s\}$.
+\textbf{3C}. Is there a normal subgroup of $S_4$ with an order of $3$?
+\chapter{Rings and ideals}
+\section{Definition and examples}
+\begin{definition}
+    A \vocab{ring} is a triple $(R,+,\times)$, two operations called addition and multiplication such that
+    \begin{itemize}
+        \item $(R,+)$ is an abelian group, with identity $0_R$ or just $0$.
+        \item $\times$ is an associative, binary operation on $R$ with an identity $1_R$ or just $1$.
+        \item Multiplication distributes over addition.
+    \end{itemize}
+\end{definition}
+\begin{example}[Typical rings]
+    Here are the typical rings:
+    \begin{itemize}
+        \item The sets $\ZZ$, $\QQ$, $\RR$ and $\CC$ are all rings with the usual addition and multiplication.
+        \item The integers modulo $n$ are also a ring with the usual addition and multiplication, denoted $\ZZ/n\ZZ$.
+    \end{itemize}
+\end{example}
+\begin{definition}
+    The \vocab{zero ring} is the ring with a single element, usually denoted $0$. A ring is nontrivial if it is not the zero ring.
+\end{definition}
+\begin{remark}
+    A ring is nontrivial iff $0_R\neq 1_R$. If $0=1$, $a = 1\times a = 0 \times a = 0$.
+\end{remark}
+\begin{proposition}
+    For any $r\in R$, $r\times 0 = 0$. $r \times (-1) = -r$.
+\end{proposition}
+\begin{example}
+    Given two rings $R$ and $S$, define the product ring with componentwise addition and multiplication. For example, the chinese remainder theorem says that $\ZZ/15\ZZ = \ZZ/3\ZZ \times \ZZ/5\ZZ$.
+\end{example}
+\begin{example}
+    Given a ring $R$, we can define the \vocab{polynomial ring} as follows:
+    \[R[x]=\left\{c_nx^n + c_{n-1}x^{n-1} + \dots + c_1x + c_0 \mid c_0, c_1, \dots, c_n \in R\right\}.\]
+\end{example}
+\begin{example}
+    We can adjoin more variables if we want, and we denote this $R[x_1,\dots,x_n]$.
+\end{example}
+\begin{example}[Gaussian integers]
+    With some abuse of notation, we can write the Gaussian integers as \[\ZZ[i] = \{a+bi \mid a,b\in \ZZ\}.\]
+\end{example}
+\begin{example}[Cube root of $2$]
+    We can write, using the same abuse of notation, that \[\ZZ[\sqrt[3]{2}] = \{a + b\sqrt[3]{2} + c\sqrt[3]{4} \mid a,b,c \in \ZZ\}.\]
+\end{example}
+\section{Fields}
+\begin{definition}
+    A \vocab{unit} is an element $u\in R$ which is invertible. There exists $x\in R$ with $ux = 1$.
+\end{definition}
+\begin{example}
+    Examples of units follow:
+    \begin{itemize}
+        \item The units of $\ZZ$ are $\pm 1$. 
+        \item In $\QQ$, everything except for $0$ is a unit.
+        \item The Gaussian integers $\ZZ[i]$ have four units, $\pm 1$ and $\pm i$.
+    \end{itemize}
+\end{example}
+\begin{definition}
+    A nontrivial ring is a \vocab{field} when all of its nonzero elements are units.
+\end{definition}
+\begin{example}
+    Principal examples of fields follow:
+    \begin{itemize}
+        \item $\QQ$, $\RR$ and $\CC$ are fields, since $\frac{1}{c}$ makes sense in them.
+        \item If $p$ is a prime, then $\ZZ/p\ZZ$ is a field, denoted $\mathbb{F}_p$.
+    \end{itemize}
+\end{example}
+\section{Homomorphisms}
+\begin{definition}
+    Let $R=(R,+,\times)$ and $S=(S,\oplus, \star)$ be rings. A \vocab{ring homomorphism} is a map $\phi: R\to S$ such that, if $x$ and $y$ are elements of $R$:
+    \begin{itemize}
+        \item $\phi(x+y) = \phi(x)\oplus\phi(y)$
+        \item $\phi(x\times y) = \phi(x)\star\phi(y)$
+        \item $\phi(1_R)=1_S$
+    \end{itemize}
+\end{definition}
+\begin{example}
+    Examples of ring homomorphisms follow:
+    \begin{itemize}
+        \item The identity map.
+        \item The map $\ZZ\to \ZZ/5\ZZ$, modding out by $5$.
+        \item The map $\RR[x]\to \RR$ defined by $p(x)\mapsto p(0)$, taking the constant term.
+        \item The trivial ring homomorphism $R\to 0$.
+    \end{itemize}
+\end{example}
+\begin{example}
+    Some maps fail to be homomorphisms
+    \begin{itemize}
+        \item The map $\ZZ\to2\ZZ$ by taking $x\mapsto 2x$ fails, because it does not preserve multiplication.
+        \item The map $R\to S$ taking $x\mapsto 0$ fails, because $1_R\not\mapsto 1_S$.
+        \item There is no ring homomorphism $\ZZ/2016\ZZ\to \ZZ$.
+    \end{itemize}
+\end{example}
+\section{Ideals}
+\end{document}

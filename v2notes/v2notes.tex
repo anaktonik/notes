@@ -1,0 +1,108 @@
+\documentclass[11pt]{scrreport}
+\usepackage[sexy,hints]{evan}
+\begin{document}
+\title{V2 Notes}
+\author{Anachthonic}
+\tableofcontents
+\maketitle
+\setcounter{chapter}{-1}
+\chapter{Prove it!}
+This is a brief digression to study proof tactics.
+Some commonly used proof tactics include:
+\begin{itemize}
+    \item \textbf{Contradiction:} Suppose we are trying to prove $p$. If we prove that $\neg p \implies \bot$, then the only option is for $p$ to be true.
+    \item \textbf{Induction:} It is an axiom (schema) in the Peano axioms and provable in ZFC that if $P(0)$ and $P(n)\implies P(n+1)$ both hold, then $P(k)$ is true for any $k$. We won't delve into this too much, look no further than \href{https://en.wikipedia.org/wiki/Mathematical_induction}{Wikipedia} for a smoother introduction to this topic.
+    \item \textbf{Pigeonhole Principle:} A "trivial" theorem that says there is no injective function from a set to another such that the first set has greater size. Again, look to \href{https://en.wikipedia.org/wiki/Pigeonhole_principle}{other sources} for more information.
+\end{itemize}
+\begin{theorem}
+    There are infinitely many primes.
+\end{theorem}
+\begin{proof}
+    Suppose for contradiction that we have a complete finite list of all primes, $\{p_1,p_2,\dots,p_k\}$. Consider $X=p_1p_2\cdots p_k + 1$. Notice that, since all primes are greater than or equal to $2$, none of them divide $X$. This means that the only possible divisors for $X$ are $X$ and $1$. This means that $X$ is prime, contradicting that our list is complete.
+\end{proof}
+\begin{proposition}
+    Let $F_n$ be the Fibonacci sequence defined with $F_0=0$ and $F_1=1$. Prove that \[F_1+F_2+\dots+F_n = F_{n+2}-1\]
+\end{proposition}
+\begin{proof}
+    We induct on $n$. Note that $F_3 = 2$, so this holds for $F_1$. Then suppose it holds for $F_n$. Consider the sum \[F_1+\dots + F_{n+1} = F_{n+2}-1 + F_{n+1} = F_{n+3}-1.\] So this holds for all $n$.
+\end{proof}
+\chapter{Logarithms}
+Instead of doing a hefty introduction, which can be found \href{https://www.khanacademy.org/math/algebra2/x2ec2f6f830c9fb89:logs}{elsewhere}, we shall relay the properties of logarithms, given that $\log$ means an arbitrary logarithm, $\ln$ is the natural logarithm, and the base $10$ logarithm is denoted $\log_{10}$.
+\begin{itemize}
+    \item $\log b^n = n\log b$
+    \item $\log b + \log c + \log bc$
+    \item $(\log_a b)(\log_c d) = (\log_a d)(\log_c b)$
+    \item $\log_a b = \frac{\log b}{\log a}$.
+    \item $\log_{a^n}b^n = \log_a b$.
+\end{itemize}
+\begin{example}
+    Let $x=\log_23$ and $y=\log_25$. Then:
+    \begin{itemize}
+        \item $\log_215=x+y$
+        \item $\log_2{7.5}=x+y-1$
+        \item $\log_32 = \frac{\log_2 2}{\log_2 3} = \frac{1}{x}$
+        \item $\log_315 =\frac{\log_215}{\log_23}=\frac{x+y}{x}$
+        \item $\log_49=\log_23=x$
+        \item $\log_56=\log_52+\log_53=\frac{x+1}{y}$
+    \end{itemize}
+\end{example}
+\begin{exercise}
+    Find all $x$ such that $\log_6(x+2)+\log_6(x+3)=1$
+\end{exercise}
+\begin{soln}
+    This is the same as solving $(x+2)(x+3) = 6$. Aside from an obvious solution at $x=0$, we can expand to get $x^2+5x=0$, which gives $x=-5$. However, we require arguments of logarithms to be positive, so $x=0$.
+\end{soln}
+
+\begin{exercise}
+    Find the sum \[\log\frac{1}{2}+\dots + \log\frac{99}{100}\]
+\end{exercise}
+\begin{soln}
+    \[\log\frac{1\cdots99}{2\cdots100}=\log(1/100)=-2\]
+\end{soln}
+
+\begin{problem}
+    Evaluate $(\log_23)(\log_34)(\log_45)(\log_56)(\log_67)(\log_78)$
+\end{problem}
+\begin{soln}
+    Use the "bouncing around" property of logarithm to get $3\cdot1\cdots1$
+\end{soln}
+
+\begin{problem}
+    How many points do $y=2\log x$ and $y=\log2x$ intersect?
+\end{problem}
+\begin{soln}
+    We must have $2\log x = \log 2x$ so that $2x=x^2$, solution from there.
+\end{soln}
+
+\begin{problem}
+    Find all solutions of \[x^{\log x} = \frac{x^3}{100}\]
+\end{problem}
+\begin{soln}
+\end{soln}
+
+\begin{problem}
+\end{problem}
+\begin{soln}
+\end{soln}
+
+\begin{problem}
+\end{problem}
+\begin{soln}
+\end{soln}
+
+\begin{problem}
+\end{problem}
+\begin{soln}
+\end{soln}
+
+\begin{problem}
+\end{problem}
+\begin{soln}
+\end{soln}
+
+\begin{problem}
+\end{problem}
+\begin{soln}
+\end{soln}
+
+\end{document}
